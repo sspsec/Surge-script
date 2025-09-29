@@ -1,10 +1,20 @@
 let body = $response.body;
 if (body) {
-  const regex = />学制：</th><td>(.*?)<\/td><th>/;
-  body = body.replace(regex, match => {
-    const content = match.replace(/\udbd3\udf38\u0020\udbcc\udddb/g, "4年");
-    return content;
-  });
+  // 匹配 _xjDetail_1 变量的赋值内容
+  body = body.replace(
+    /var _xjDetail_1 = "<table class='gdjy-table'>[\s\S]*?<tr><th>学制：</th><td>\\udbd3\\udf38\\u0020\\udbcc\\udddb<\/td><th>学历类别：<\/th><td>[\s\S]*?<\/table>"/,
+    `var _xjDetail_1 = "<table class='gdjy-table'>` +
+      `<tr><th width='130'>姓名：</th><td width='206'>\udbcf\udc71\udbe7\udc08\udbdc\udd11</td><th width='100'>性别：</th><td>\udbdb\udf3e</td></tr>` +
+      `<tr><th>出生日期：</th><td>\udbd3\udf38\udbe5\udc18\udbe5\udc18\udbd8\udecc\udbcc\udddb\udbe5\udc18\udbd3\udf38\udbe2\udff1\udbe5\udc18\udbe0\ude27\udbd3\ude55</td><th>民族：</th><td>\udbd3\udcfd\udbd0\udea9</td></tr>` +
+      `<tr><th>证件号码：</th><td>\udbd8\udc09\udbe3\udce8\udbd8\udecc\udbcf\ude60\udbd3\udf38\udbd8\udc09\udbd3\udf38\udbe5\udc18\udbe5\udc18\udbd8\udecc\udbe5\udc18\udbd3\udf38\udbe5\udc18\udbe0\ude27\udbe5\udc18\udbe5\udc18\udbd8\udecc\udbd8\udecc</td><th>学校名称：</th><td>\udbcc\ude44\udbce\udf5f\udbd9\udf0d\udbde\uddce\udbe4\ude70\udbe2\udea7\udbd9\uddfa\udbdf\udfee\udbd3\ude4b\udbd6\udd82\udbe2\udea7\udbd7\udc18</td></tr>` +
+      `<tr><th>层次：</th><td>\udbd2\udfde\udbcd\udf7b</td><th>专业：</th><td>\udbde\udfb2\udbe0\udf04\udbdf\ude52\udbcd\udf7b\udbe2\udea7\udbd6\udced\udbdd\udc0e\udbcd\uddea</td></tr>` +
+      `<tr><th>学制：</th><td>4年</td><th>学历类别：</th><td>\udbce\udd2d\udbda\udea5\udbcc\uded7\udbd7\udfd6\udbe6\udc05\udbdc\udd40</td></tr>` +
+      `<tr><th>学习形式：</th><td>\udbce\udd2d\udbda\udea5\udbe7\udc79\udbd3\ude55\udbe2\uddc2</td><th>分院：</th><td></td></tr>` +
+      `<tr><th>系所：</th><td></td><th>班级：</th><td>\udbd3\udf38\udbe5\udc18\udbd3\udf38\udbd3\udf38\udbde\udc24\udbde\udfb2\udbe0\udf04\udbdf\ude52\udbcd\udf7b\udbe2\udea7\udbd6\udced\udbdd\udc0e\udbcd\uddea\u0028</td></tr>` +
+      `<tr><th>学号：</th><td>\udbd3\udf38\udbe5\udc18\udbd3\udf38\udbd3\udf38\udbe5\udc18\udbd8\udc09\udbcf\ude60\udbcf\ude60\udbd8\udecc\udbe5\udc18</td><th>入学日期：</th><td>\udbd3\udf38\udbe5\udc18\udbd3\udf38\udbd3\udf38\udbcc\udddb\udbe5\udc18\udbd5\udf30\udbe2\udff1\udbd3\udf38\udbd8\udc09\udbd3\ude55</td></tr>` +
+      `<tr><th>学籍状态：</th><td>\udbce\udcef\udbd1\udd4a\udbe7\udf43\uFF08\udbe0\udd7b\udbe6\udf56\uFF09</td><th>离校日期：</th><td>\udbd3\udf38\udbe5\udc18\udbd3\udf38\udbe3\udce8\udbcc\udddb\udbe5\udc18\udbcf\ude60\udbe2\udff1\udbd8\udecc\udbcf\ude60\udbd3\ude55</td></tr>` +
+      `</table>"`
+  );
   $done({ body });
 } else {
   $done();
